@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superhero Relative Clauses Quiz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            margin: 20px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .student-info {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .student-info label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        .student-info input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .question {
+            background-color: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .question-number {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        .options {
+            margin-top: 10px;
+        }
+        .option {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .download-btn {
+            background-color: #27ae60;
+        }
+        .download-btn:hover {
+            background-color: #219653;
+        }
+        .generate-btn {
+            background-color: #9b59b6;
+        }
+        .generate-btn:hover {
+            background-color: #8e44ad;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div id="pdf-content">
+        <div class="header">
+            <h1>⚡ Superhero Relative Clauses Quiz ⚡</h1>
+            <p>Test your knowledge of relative clauses with these superhero-themed questions!</p>
+        </div>
+
+        <div class="student-info">
+            <h3>Student Information</h3>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your full name">
+
+            <label for="grade">Grade:</label>
+            <input type="text" id="grade" placeholder="Enter your grade level">
+
+            <label for="date">Date:</label>
+            <input type="text" id="date" placeholder="MM/DD/YYYY">
+        </div>
+
+        <div class="instructions">
+            <strong>Instructions:</strong> Read each question carefully and select the correct answer. Remember to use your knowledge of relative clauses (who, which, that, where, when, whose) to complete each sentence correctly.
+        </div>
+
+        <div id="quiz-container">
+            <!-- Questions will be generated here -->
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
+        <button class="generate-btn" onclick="generateNewQuiz()">Generate New Questions</button>
+    </div>
+
+    <script>
+        document.getElementById('date').valueAsDate = new Date();
+
+        const quizQuestions = [
+            { question: "Spider-Man is the superhero _______ can climb walls and shoot webs.", options: ["who", "which", "where", "when"], correct: "who" },
+            { question: "The Batmobile is the car _______ Batman uses to fight crime in Gotham City.", options: ["who", "which", "where", "whose"], correct: "which" },
+            { question: "Metropolis is the city _______ Superman protects from evil villains.", options: ["who", "which", "where", "when"], correct: "where" },
+            { question: "The day _______ Iron Man first revealed his identity was a turning point in superhero history.", options: ["who", "which", "where", "when"], correct: "when" },
+            { question: "Wonder Woman is the Amazon warrior _______ strength comes from her divine heritage.", options: ["who", "which", "whose", "where"], correct: "whose" },
+            { question: "The Fortress of Solitude is the place _______ Superman goes to think and recharge.", options: ["who", "which", "where", "when"], correct: "where" },
+            { question: "Captain America is the hero _______ shield is made of vibranium and can deflect bullets.", options: ["who", "which", "whose", "where"], correct: "whose" },
+            { question: "The Avengers Tower is the building _______ the Avengers team headquarters is located.", options: ["who", "which", "where", "when"], correct: "where" },
+            { question: "Black Widow is the spy _______ skills include martial arts and espionage.", options: ["who", "which", "whose", "where"], correct: "whose" },
+            { question: "The moment _______ Thor first lifted Mjolnir was when he proved himself worthy.", options: ["who", "which", "where", "when"], correct: "when" }
+        ];
+
+        function generateRandomQuestions(count = 10) {
+            const shuffled = [...quizQuestions].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            const questions = generateRandomQuestions();
+            container.innerHTML = '';
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <div class="question-number">Question ${index + 1}:</div>
+                    <p>${q.question}</p>
+                    <div class="options">
+                        ${q.options.map(option => `<div class="option">${String.fromCharCode(65 + q.options.indexOf(option))}. ${option}</div>`).join('')}
+                    </div>
+                `;
+                container.appendChild(questionDiv);
+            });
+        }
+
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const content = document.getElementById('pdf-content');
+            const canvas = await html2canvas(content, { scale: 2, backgroundColor: '#f0f8ff' });
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 210;
+            const pageHeight = 297;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            const name = document.getElementById('name').value.trim() || 'student';
+            pdf.save(`Superhero_Quiz_${name.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        function generateNewQuiz() {
+            renderQuiz();
+        }
+
+        window.onload = () => {
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>

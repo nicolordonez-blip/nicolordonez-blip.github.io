@@ -139,6 +139,7 @@
     </div>
 
     <script>
+        // Establecer fecha actual
         document.getElementById('date').valueAsDate = new Date();
 
         const quizQuestions = [
@@ -180,7 +181,11 @@
         async function downloadPDF() {
             const { jsPDF } = window.jspdf;
             const content = document.getElementById('pdf-content');
-            const canvas = await html2canvas(content, { scale: 2, backgroundColor: '#f0f8ff' });
+            const canvas = await html2canvas(content, { 
+                scale: 2, 
+                backgroundColor: '#f0f8ff',
+                useCORS: true 
+            });
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const imgWidth = 210;
@@ -204,9 +209,10 @@
             renderQuiz();
         }
 
-        window.onload = () => {
+        // Inicializar al cargar
+        window.addEventListener('DOMContentLoaded', (event) => {
             renderQuiz();
-        };
+        });
     </script>
 </body>
 </html>

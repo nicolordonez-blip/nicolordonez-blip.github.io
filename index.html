@@ -4,109 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Superhero Relative Clauses Quiz</title>
+    <!-- Librerías para PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f8ff;
-            margin: 20px;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            margin: 0;
             padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
             max-width: 800px;
-            margin: auto;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            overflow: hidden;
         }
         .header {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
             text-align: center;
-            margin-bottom: 20px;
+            padding: 25px 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
         }
         .student-info {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            padding: 20px;
+            background: #f9f9ff;
+            border-bottom: 2px dashed #e0e0e0;
+        }
+        .student-info h3 {
+            color: #ff416c;
+            margin-top: 0;
         }
         .student-info label {
             display: block;
-            margin: 10px 0 5px;
+            margin: 12px 0 6px;
             font-weight: bold;
+            color: #2c3e50;
         }
         .student-info input {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .student-info input:focus {
+            border-color: #ff416c;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 65, 108, 0.2);
+        }
+        .instructions {
+            padding: 20px;
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            margin: 0;
+        }
+        .instructions strong {
+            color: #0d47a1;
         }
         .question {
-            background-color: white;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: white;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            border: 2px solid #ffeaa7;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
         }
         .question-number {
             font-weight: bold;
-            color: #2c3e50;
-            font-size: 1.1em;
+            color: #ff416c;
+            font-size: 1.2em;
+            margin-bottom: 8px;
         }
         .options {
-            margin-top: 10px;
+            margin-top: 12px;
         }
         .option {
             display: block;
-            margin: 8px 0;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 12px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.2s;
+        }
+        .option:hover {
+            background: #e9ecef;
+            border-color: #ff416c;
+            color: #ff416c;
         }
         .buttons {
             text-align: center;
-            margin: 30px 0;
+            padding: 25px;
+            background: #f8f9fa;
         }
         button {
-            background-color: #3498db;
-            color: white;
+            padding: 14px 28px;
+            margin: 0 12px;
             border: none;
-            padding: 12px 24px;
-            margin: 0 10px;
-            border-radius: 6px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #2980b9;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .download-btn {
-            background-color: #27ae60;
+            background: linear-gradient(to right, #00b09b, #96c93d);
+            color: white;
         }
         .download-btn:hover {
-            background-color: #219653;
+            background: linear-gradient(to right, #009a87, #7db633);
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
         }
         .generate-btn {
-            background-color: #9b59b6;
+            background: linear-gradient(to right, #8e2de2, #4a00e0);
+            color: white;
         }
         .generate-btn:hover {
-            background-color: #8e44ad;
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .instructions {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 5px solid #3498db;
+            background: linear-gradient(to right, #7a1ad2, #3a00c0);
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
-    <div id="pdf-content">
+    <div class="container">
         <div class="header">
             <h1>⚡ Superhero Relative Clauses Quiz ⚡</h1>
             <p>Test your knowledge of relative clauses with these superhero-themed questions!</p>
@@ -131,28 +180,33 @@
         <div id="quiz-container">
             <!-- Questions will be generated here -->
         </div>
-    </div>
 
-    <div class="buttons">
-        <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
-        <button class="generate-btn" onclick="generateNewQuiz()">Generate New Questions</button>
+        <div class="buttons">
+            <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
+            <button class="generate-btn" onclick="generateNewQuiz()">Generate New Questions</button>
+        </div>
     </div>
 
     <script>
-        // Establecer fecha actual
-        document.getElementById('date').valueAsDate = new Date();
+        // Set current date
+        const now = new Date();
+        const formattedDate = (now.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                              now.getDate().toString().padStart(2, '0') + '/' + 
+                              now.getFullYear();
+        document.getElementById('date').value = formattedDate;
 
+        // Full list of 10 superhero-themed questions
         const quizQuestions = [
-            { question: "Spider-Man is the superhero _______ can climb walls and shoot webs.", options: ["who", "which", "where", "when"], correct: "who" },
-            { question: "The Batmobile is the car _______ Batman uses to fight crime in Gotham City.", options: ["who", "which", "where", "whose"], correct: "which" },
-            { question: "Metropolis is the city _______ Superman protects from evil villains.", options: ["who", "which", "where", "when"], correct: "where" },
-            { question: "The day _______ Iron Man first revealed his identity was a turning point in superhero history.", options: ["who", "which", "where", "when"], correct: "when" },
-            { question: "Wonder Woman is the Amazon warrior _______ strength comes from her divine heritage.", options: ["who", "which", "whose", "where"], correct: "whose" },
-            { question: "The Fortress of Solitude is the place _______ Superman goes to think and recharge.", options: ["who", "which", "where", "when"], correct: "where" },
-            { question: "Captain America is the hero _______ shield is made of vibranium and can deflect bullets.", options: ["who", "which", "whose", "where"], correct: "whose" },
-            { question: "The Avengers Tower is the building _______ the Avengers team headquarters is located.", options: ["who", "which", "where", "when"], correct: "where" },
-            { question: "Black Widow is the spy _______ skills include martial arts and espionage.", options: ["who", "which", "whose", "where"], correct: "whose" },
-            { question: "The moment _______ Thor first lifted Mjolnir was when he proved himself worthy.", options: ["who", "which", "where", "when"], correct: "when" }
+            { question: "Spider-Man is the superhero _______ can climb walls and shoot webs.", options: ["who", "which", "where", "when"] },
+            { question: "The Batmobile is the car _______ Batman uses to fight crime in Gotham City.", options: ["who", "which", "where", "whose"] },
+            { question: "Metropolis is the city _______ Superman protects from evil villains.", options: ["who", "which", "where", "when"] },
+            { question: "The day _______ Iron Man first revealed his identity was a turning point in superhero history.", options: ["who", "which", "where", "when"] },
+            { question: "Wonder Woman is the Amazon warrior _______ strength comes from her divine heritage.", options: ["who", "which", "whose", "where"] },
+            { question: "The Fortress of Solitude is the place _______ Superman goes to think and recharge.", options: ["who", "which", "where", "when"] },
+            { question: "Captain America is the hero _______ shield is made of vibranium and can deflect bullets.", options: ["who", "which", "whose", "where"] },
+            { question: "The Avengers Tower is the building _______ the Avengers team headquarters is located.", options: ["who", "which", "where", "when"] },
+            { question: "Black Widow is the spy _______ skills include martial arts and espionage.", options: ["who", "which", "whose", "where"] },
+            { question: "The moment _______ Thor first lifted Mjolnir was when he proved himself worthy.", options: ["who", "which", "where", "when"] }
         ];
 
         function generateRandomQuestions(count = 10) {
@@ -164,15 +218,19 @@
             const container = document.getElementById('quiz-container');
             const questions = generateRandomQuestions();
             container.innerHTML = '';
+            
             questions.forEach((q, index) => {
                 const questionDiv = document.createElement('div');
                 questionDiv.className = 'question';
+                const optionsHTML = q.options.map((opt, i) => {
+                    const letter = String.fromCharCode(65 + i); // A, B, C, D
+                    return `<div class="option">${letter}. ${opt}</div>`;
+                }).join('');
+                
                 questionDiv.innerHTML = `
                     <div class="question-number">Question ${index + 1}:</div>
                     <p>${q.question}</p>
-                    <div class="options">
-                        ${q.options.map(option => `<div class="option">${String.fromCharCode(65 + q.options.indexOf(option))}. ${option}</div>`).join('')}
-                    </div>
+                    <div class="options">${optionsHTML}</div>
                 `;
                 container.appendChild(questionDiv);
             });
@@ -180,12 +238,14 @@
 
         async function downloadPDF() {
             const { jsPDF } = window.jspdf;
-            const content = document.getElementById('pdf-content');
-            const canvas = await html2canvas(content, { 
-                scale: 2, 
-                backgroundColor: '#f0f8ff',
-                useCORS: true 
+            const content = document.querySelector('.container');
+            
+            const canvas = await html2canvas(content, {
+                scale: 2,
+                backgroundColor: null,
+                useCORS: true
             });
+            
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const imgWidth = 210;
@@ -193,14 +253,17 @@
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
             let heightLeft = imgHeight;
             let position = 0;
+            
             pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
+            
             while (heightLeft >= 0) {
                 position = heightLeft - imgHeight;
                 pdf.addPage();
                 pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
+            
             const name = document.getElementById('name').value.trim() || 'student';
             pdf.save(`Superhero_Quiz_${name.replace(/\s+/g, '_')}.pdf`);
         }
@@ -209,8 +272,8 @@
             renderQuiz();
         }
 
-        // Inicializar al cargar
-        window.addEventListener('DOMContentLoaded', (event) => {
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', () => {
             renderQuiz();
         });
     </script>

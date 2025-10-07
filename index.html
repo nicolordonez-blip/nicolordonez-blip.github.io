@@ -1,281 +1,415 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Superhero Relative Clauses Quiz</title>
-    <!-- Librerías para PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            overflow: hidden;
-        }
-        .header {
-            background: linear-gradient(to right, #ff416c, #ff4b2b);
-            color: white;
-            text-align: center;
-            padding: 25px 20px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 2.2em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        .header p {
-            margin: 10px 0 0;
-            opacity: 0.9;
-            font-size: 1.1em;
-        }
-        .student-info {
-            padding: 20px;
-            background: #f9f9ff;
-            border-bottom: 2px dashed #e0e0e0;
-        }
-        .student-info h3 {
-            color: #ff416c;
-            margin-top: 0;
-        }
-        .student-info label {
-            display: block;
-            margin: 12px 0 6px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .student-info input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        .student-info input:focus {
-            border-color: #ff416c;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 65, 108, 0.2);
-        }
-        .instructions {
-            padding: 20px;
-            background: #e3f2fd;
-            border-left: 5px solid #2196f3;
-            margin: 0;
-        }
-        .instructions strong {
-            color: #0d47a1;
-        }
-        .question {
-            background: white;
-            padding: 20px;
-            margin: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-            border: 2px solid #ffeaa7;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .question:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-        }
-        .question-number {
-            font-weight: bold;
-            color: #ff416c;
-            font-size: 1.2em;
-            margin-bottom: 8px;
-        }
-        .options {
-            margin-top: 12px;
-        }
-        .option {
-            display: block;
-            margin: 10px 0;
-            padding: 12px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-weight: 600;
-            color: #495057;
-            transition: all 0.2s;
-        }
-        .option:hover {
-            background: #e9ecef;
-            border-color: #ff416c;
-            color: #ff416c;
-        }
-        .buttons {
-            text-align: center;
-            padding: 25px;
-            background: #f8f9fa;
-        }
-        button {
-            padding: 14px 28px;
-            margin: 0 12px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .download-btn {
-            background: linear-gradient(to right, #00b09b, #96c93d);
-            color: white;
-        }
-        .download-btn:hover {
-            background: linear-gradient(to right, #009a87, #7db633);
-            transform: scale(1.05);
-            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-        }
-        .generate-btn {
-            background: linear-gradient(to right, #8e2de2, #4a00e0);
-            color: white;
-        }
-        .generate-btn:hover {
-            background: linear-gradient(to right, #7a1ad2, #3a00c0);
-            transform: scale(1.05);
-            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Superhero Relative Clauses Quiz</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #1a2a6c, #b21f1f, #1a2a6c);
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .header {
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+    .timer-display {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: rgba(0,0,0,0.2);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 1.1em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hourglass {
+      font-size: 1.3em;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 1.8em;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    .student-info {
+      padding: 20px;
+      background: #f8f9ff;
+      border-bottom: 2px solid #e9ecef;
+    }
+    .student-info label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    .student-info input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ced4da;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .instructions {
+      padding: 20px;
+      background: #e3f2fd;
+      border-left: 5px solid #2196f3;
+      margin: 0;
+    }
+    .question {
+      padding: 20px;
+      margin: 15px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+      border: 2px solid #ffe082;
+      position: relative;
+    }
+    .question.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .question-number {
+      font-weight: bold;
+      color: #e91e63;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    .options {
+      margin-top: 12px;
+    }
+    .option {
+      padding: 12px;
+      margin: 8px 0;
+      background: #f5f5f5;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #424242;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .option:hover:not(.correct):not(.incorrect) {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+    }
+    .option.selected {
+      background: #bbdefb;
+      border-left: 4px solid #1976d2;
+    }
+    .option.correct {
+      background: #c8e6c9 !important;
+      border-left: 4px solid #4caf50 !important;
+    }
+    .option.incorrect {
+      background: #ffcdd2 !important;
+      border-left: 4px solid #f44336 !important;
+    }
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+      min-height: 24px;
+    }
+    .buttons {
+      text-align: center;
+      padding: 25px;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 14px 24px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      min-width: 180px;
+    }
+    .btn-pdf {
+      background: linear-gradient(to right, #00c853, #64dd17);
+      color: white;
+      box-shadow: 0 4px 6px rgba(0,150,0,0.2);
+    }
+    .btn-check {
+      background: linear-gradient(to right, #ff9800, #ff5722);
+      color: white;
+      box-shadow: 0 4px 6px rgba(255,87,34,0.2);
+    }
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.25);
+    }
+    .result {
+      text-align: center;
+      padding: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+      background: #e8f5e9;
+      color: #2e7d32;
+      display: none;
+    }
+    .time-up {
+      text-align: center;
+      padding: 20px;
+      background: #ffcdd2;
+      color: #c62828;
+      font-weight: bold;
+      font-size: 1.3em;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>⚡ Superhero Relative Clauses Quiz ⚡</h1>
-            <p>Test your knowledge of relative clauses with these superhero-themed questions!</p>
-        </div>
-
-        <div class="student-info">
-            <h3>Student Information</h3>
-            <label for="name">Name:</label>
-            <input type="text" id="name" placeholder="Enter your full name">
-
-            <label for="grade">Grade:</label>
-            <input type="text" id="grade" placeholder="Enter your grade level">
-
-            <label for="date">Date:</label>
-            <input type="text" id="date" placeholder="MM/DD/YYYY">
-        </div>
-
-        <div class="instructions">
-            <strong>Instructions:</strong> Read each question carefully and select the correct answer. Remember to use your knowledge of relative clauses (who, which, that, where, when, whose) to complete each sentence correctly.
-        </div>
-
-        <div id="quiz-container">
-            <!-- Questions will be generated here -->
-        </div>
-
-        <div class="buttons">
-            <button class="download-btn" onclick="downloadPDF()">Download as PDF</button>
-            <button class="generate-btn" onclick="generateNewQuiz()">Generate New Questions</button>
-        </div>
+  <div class="quiz-container" id="pdf-content">
+    <div class="header">
+      <div class="timer-display">
+        <span class="hourglass">⏳</span>
+        <span id="timer">20:00</span>
+      </div>
+      <h1>⚡ Superhero Relative Clauses Quiz ⚡</h1>
+      <p>Test your knowledge of relative clauses with superhero-themed questions!</p>
     </div>
 
-    <script>
-        // Set current date
-        const now = new Date();
-        const formattedDate = (now.getMonth() + 1).toString().padStart(2, '0') + '/' + 
-                              now.getDate().toString().padStart(2, '0') + '/' + 
-                              now.getFullYear();
-        document.getElementById('date').value = formattedDate;
+    <div class="student-info">
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="Enter your full name">
 
-        // Full list of 10 superhero-themed questions
-        const quizQuestions = [
-            { question: "Spider-Man is the superhero _______ can climb walls and shoot webs.", options: ["who", "which", "where", "when"] },
-            { question: "The Batmobile is the car _______ Batman uses to fight crime in Gotham City.", options: ["who", "which", "where", "whose"] },
-            { question: "Metropolis is the city _______ Superman protects from evil villains.", options: ["who", "which", "where", "when"] },
-            { question: "The day _______ Iron Man first revealed his identity was a turning point in superhero history.", options: ["who", "which", "where", "when"] },
-            { question: "Wonder Woman is the Amazon warrior _______ strength comes from her divine heritage.", options: ["who", "which", "whose", "where"] },
-            { question: "The Fortress of Solitude is the place _______ Superman goes to think and recharge.", options: ["who", "which", "where", "when"] },
-            { question: "Captain America is the hero _______ shield is made of vibranium and can deflect bullets.", options: ["who", "which", "whose", "where"] },
-            { question: "The Avengers Tower is the building _______ the Avengers team headquarters is located.", options: ["who", "which", "where", "when"] },
-            { question: "Black Widow is the spy _______ skills include martial arts and espionage.", options: ["who", "which", "whose", "where"] },
-            { question: "The moment _______ Thor first lifted Mjolnir was when he proved himself worthy.", options: ["who", "which", "where", "when"] }
-        ];
+      <label for="grade">Grade:</label>
+      <input type="text" id="grade" placeholder="Enter your grade level">
 
-        function generateRandomQuestions(count = 10) {
-            const shuffled = [...quizQuestions].sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, count);
+      <label for="date">Date:</label>
+      <input type="text" id="date" placeholder="MM/DD/YYYY">
+    </div>
+
+    <div class="instructions">
+      <strong>Instructions:</strong> Read each question carefully and select the correct answer. You have <strong>20 minutes</strong> to complete the quiz!
+    </div>
+
+    <div class="time-up" id="time-up">⏰ Time's up! Submit your answers now.</div>
+
+    <div id="quiz-questions"></div>
+    
+    <div class="result" id="result"></div>
+
+    <div class="buttons">
+      <button class="btn-check" onclick="checkAnswers()">Check Answers</button>
+      <button class="btn-pdf" onclick="downloadPDF()">Download as PDF</button>
+    </div>
+  </div>
+
+  <script>
+    // Establecer fecha actual
+    const today = new Date();
+    document.getElementById('date').value = 
+      (today.getMonth() + 1).toString().padStart(2, '0') + '/' +
+      today.getDate().toString().padStart(2, '0') + '/' +
+      today.getFullYear();
+
+    // Banco de preguntas con respuestas correctas
+    const quizData = [
+      { question: "Spider-Man is the superhero _______ can climb walls and shoot webs.", options: ["who", "which", "where", "when"], correct: "who" },
+      { question: "The Batmobile is the car _______ Batman uses to fight crime in Gotham City.", options: ["who", "which", "where", "whose"], correct: "which" },
+      { question: "Metropolis is the city _______ Superman protects from evil villains.", options: ["who", "which", "where", "when"], correct: "where" },
+      { question: "The day _______ Iron Man first revealed his identity was a turning point in superhero history.", options: ["who", "which", "where", "when"], correct: "when" },
+      { question: "Wonder Woman is the Amazon warrior _______ strength comes from her divine heritage.", options: ["who", "which", "whose", "where"], correct: "whose" },
+      { question: "The Fortress of Solitude is the place _______ Superman goes to think and recharge.", options: ["who", "which", "where", "when"], correct: "where" },
+      { question: "Captain America is the hero _______ shield is made of vibranium.", options: ["who", "which", "whose", "where"], correct: "whose" },
+      { question: "The Avengers Tower is the building _______ the Avengers team headquarters is located.", options: ["who", "which", "where", "when"], correct: "where" },
+      { question: "Black Widow is the spy _______ skills include martial arts and espionage.", options: ["who", "which", "whose", "where"], correct: "whose" },
+      { question: "The moment _______ Thor first lifted Mjolnir was when he proved himself worthy.", options: ["who", "which", "where", "when"], correct: "when" }
+    ];
+
+    let userAnswers = new Array(quizData.length).fill(null);
+    let timeLeft = 20 * 60; // ✅ 20 minutos en segundos
+    let timerInterval = null;
+    let timeUp = false;
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const secs = (seconds % 60).toString().padStart(2, '0');
+      return `${mins}:${secs}`;
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          timeUp = true;
+          document.getElementById('timer').textContent = "00:00";
+          document.getElementById('time-up').style.display = 'block';
+          
+          // Desactivar todas las preguntas
+          document.querySelectorAll('.question').forEach(q => {
+            q.classList.add('disabled');
+          });
+          return;
         }
-
-        function renderQuiz() {
-            const container = document.getElementById('quiz-container');
-            const questions = generateRandomQuestions();
-            container.innerHTML = '';
-            
-            questions.forEach((q, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'question';
-                const optionsHTML = q.options.map((opt, i) => {
-                    const letter = String.fromCharCode(65 + i); // A, B, C, D
-                    return `<div class="option">${letter}. ${opt}</div>`;
-                }).join('');
-                
-                questionDiv.innerHTML = `
-                    <div class="question-number">Question ${index + 1}:</div>
-                    <p>${q.question}</p>
-                    <div class="options">${optionsHTML}</div>
-                `;
-                container.appendChild(questionDiv);
-            });
+        timeLeft--;
+        document.getElementById('timer').textContent = formatTime(timeLeft);
+        
+        // Cambiar color cuando queden pocos minutos
+        if (timeLeft <= 300) { // 5 minutos
+          document.getElementById('timer').style.color = '#ff9800';
         }
-
-        async function downloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const content = document.querySelector('.container');
-            
-            const canvas = await html2canvas(content, {
-                scale: 2,
-                backgroundColor: null,
-                useCORS: true
-            });
-            
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const imgWidth = 210;
-            const pageHeight = 297;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
-            let heightLeft = imgHeight;
-            let position = 0;
-            
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-            
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-            
-            const name = document.getElementById('name').value.trim() || 'student';
-            pdf.save(`Superhero_Quiz_${name.replace(/\s+/g, '_')}.pdf`);
+        if (timeLeft <= 120) { // 2 minutos
+          document.getElementById('timer').style.color = '#ff5722';
         }
-
-        function generateNewQuiz() {
-            renderQuiz();
+        if (timeLeft <= 60) { // 1 minuto
+          document.getElementById('timer').style.color = '#f44336';
         }
+      }, 1000);
+    }
 
-        // Initialize on load
-        window.addEventListener('DOMContentLoaded', () => {
-            renderQuiz();
+    function renderQuiz() {
+      const container = document.getElementById('quiz-questions');
+      container.innerHTML = '';
+      
+      quizData.forEach((item, index) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question';
+        qDiv.dataset.index = index;
+        
+        const letters = ['A', 'B', 'C', 'D'];
+        const optsHTML = item.options.map((opt, i) => 
+          `<div class="option" data-option="${opt}" onclick="selectOption(${index}, '${opt}')">${letters[i]}. ${opt}</div>`
+        ).join('');
+        
+        qDiv.innerHTML = `
+          <div class="question-number">Question ${index + 1}:</div>
+          <p>${item.question}</p>
+          <div class="options">${optsHTML}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+        container.appendChild(qDiv);
+      });
+      
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('time-up').style.display = 'none';
+      userAnswers.fill(null);
+      timeUp = false;
+    }
+
+    function selectOption(questionIndex, selectedOption) {
+      if (timeUp) return;
+      
+      const options = document.querySelectorAll(`.question[data-index="${questionIndex}"] .option`);
+      options.forEach(opt => opt.classList.remove('selected'));
+      
+      const selectedEl = Array.from(options).find(opt => opt.dataset.option === selectedOption);
+      if (selectedEl) {
+        selectedEl.classList.add('selected');
+        userAnswers[questionIndex] = selectedOption;
+      }
+    }
+
+    function checkAnswers() {
+      if (timeUp) {
+        alert("⏰ Time's up! You can still check your answers.");
+      }
+      
+      let correctCount = 0;
+      quizData.forEach((item, index) => {
+        const feedbackEl = document.getElementById(`feedback-${index}`);
+        const options = document.querySelectorAll(`.question[data-index="${index}"] .option`);
+        
+        options.forEach(opt => {
+          opt.classList.remove('correct', 'incorrect');
         });
-    </script>
+        
+        if (userAnswers[index] === null) {
+          feedbackEl.textContent = "⚠️ Please select an answer.";
+          feedbackEl.style.color = "#ff9800";
+        } else if (userAnswers[index] === item.correct) {
+          correctCount++;
+          feedbackEl.textContent = "✅ Correct!";
+          feedbackEl.style.color = "#4caf50";
+          const correctOpt = Array.from(options).find(opt => opt.dataset.option === item.correct);
+          if (correctOpt) correctOpt.classList.add('correct');
+        } else {
+          feedbackEl.textContent = `❌ Incorrect. Correct answer: ${item.correct}`;
+          feedbackEl.style.color = "#f44336";
+          const selectedOpt = Array.from(options).find(opt => opt.dataset.option === userAnswers[index]);
+          const correctOpt = Array.from(options).find(opt => opt.dataset.option === item.correct);
+          if (selectedOpt) selectedOpt.classList.add('incorrect');
+          if (correctOpt) correctOpt.classList.add('correct');
+        }
+      });
+      
+      const resultEl = document.getElementById('result');
+      resultEl.textContent = `You got ${correctCount} out of ${quizData.length} correct!`;
+      resultEl.style.display = 'block';
+      
+      if (correctCount === quizData.length) {
+        resultEl.style.background = '#c8e6c9';
+        resultEl.style.color = '#2e7d32';
+      } else if (correctCount >= quizData.length / 2) {
+        resultEl.style.background = '#fff3e0';
+        resultEl.style.color = '#ef6c00';
+      } else {
+        resultEl.style.background = '#ffcdd2';
+        resultEl.style.color = '#c62828';
+      }
+    }
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const content = document.getElementById('pdf-content');
+      
+      const canvas = await html2canvas(content, {
+        scale: 2,
+        backgroundColor: null,
+        useCORS: true
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const pageHeight = 297;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+      
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      const name = document.getElementById('name').value.trim() || 'student';
+      pdf.save(`Superhero_Quiz_${name.replace(/\s+/g, '_')}.pdf`);
+    }
+
+    // Inicializar
+    window.addEventListener('DOMContentLoaded', () => {
+      renderQuiz();
+      startTimer();
+    });
+  </script>
 </body>
 </html>
